@@ -33,10 +33,11 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 	}
 	
 	public void launchGame() {
+		System.out.println("launch");
 		//build the window and start the simulation
 		//setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setLayout(new BorderLayout());
-		
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		window = new JFrame("Conway's Game Of Life");
 		window.add(this);
 		
@@ -69,6 +70,7 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 	boolean run = false;
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("new");
 		if(e.getSource() == startStopButton) {
 			run = !run;
 			if(run) {
