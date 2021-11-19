@@ -28,12 +28,14 @@ public class Cell implements Drawable {
 	 * neighbours becomes a live cell, as if by reproduction. (source: Wikipedia)
 	 */
 	public void liveOrDie(int numNeighbors) {
-		if(numNeighbors < 2) {
+		if (isAlive && numNeighbors < 2) {
 			isAlive = false;
-		} else if (numNeighbors== 3) {
+		} else if (isAlive && numNeighbors < 4 && numNeighbors > 1) {
 			isAlive = true;
-		} else {
+		} else if (isAlive && numNeighbors > 3) {
 			isAlive = false;
+		} else if (!isAlive && numNeighbors == 3) {
+			isAlive = true;
 		}
 	}
 
@@ -50,12 +52,12 @@ public class Cell implements Drawable {
 	// draws empty square if cell is dead
 	@Override
 	public void draw(Graphics g) {
-		
+
 		if (isAlive) {
-			g.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
+			g.setColor(Color.RED);
+		} else {
+			g.setColor(Color.BLACK);
 		}
-		else {
-			g.drawRect(x*cellSize, y*cellSize, cellSize, cellSize);
-		}
+		g.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
 	}
 }

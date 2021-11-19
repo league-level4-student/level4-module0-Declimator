@@ -26,17 +26,18 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		setPreferredSize(new Dimension(w, h));
 		addMouseListener(this);
 		timer = new Timer(500, this);
+		System.out.println("timer start");
 		this.cellsPerRow = cpr;
-
+		
 		// 2. Calculate the cell size.
 		cellSize = w / cellsPerRow;
 		// 3. Initialize the cell array to the appropriate size.
-		cells = new Cell[w][h];
+		cells = new Cell[w/cellSize][h/cellSize];
 		// 3. Iterate through the array and initialize each cell.
 		// Don't forget to consider the cell's dimensions when
 		// passing in the location.
-		for (int i = 0; i < w; i++) {
-			for (int j = 0; j < h; j++) {
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
 				cells[i][j] = new Cell(i, j, cellSize);
 			}
 		}
@@ -83,8 +84,9 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 
 	@Override
 	public void paintComponent(Graphics g) {
-		// 6. Iterate through the cells and draw them all
-		// draws grid
+		 //6. Iterate through the cells and draw them all
+		 //draws grid
+		//System.out.println(cells.length + " " + cells[0].length);
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
 				cells[i][j].draw(g);
@@ -97,11 +99,15 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 7. iterate through cells and fill in the livingNeighbors array
 		// . using the getLivingNeighbors method.
 		int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
-
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				livingNeighbors[i][j] = getLivingNeighbors(i, j);
+			}
+		}
 		// 8. check if each cell should live or die
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j].isAlive = false;
+				cells[i][j].liveOrDie(livingNeighbors[i][j]);
 			}
 		}
 
@@ -114,28 +120,28 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// cell identified by x and y
 	public int getLivingNeighbors(int x, int y) {
 		int count = 0;
-		if (cells[x - 1][y - 1].isAlive) {
+		if (x >= 1 && y >= 1 && cells[x - 1][y - 1].isAlive) {
 			count++;
 		}
-		if (cells[x - 1][y].isAlive) {
+		if (x >= 1 && cells[x - 1][y].isAlive) {
 			count++;
 		}
-		if (cells[x - 1][y + 1].isAlive) {
+		if (x >= 1 && y + 1 < cells.length && cells[x - 1][y + 1].isAlive) {
 			count++;
 		}
-		if (cells[x][y - 1].isAlive) {
+		if (y >= 1 && cells[x][y - 1].isAlive) {
 			count++;
 		}
-		if (cells[x][y + 1].isAlive) {
+		if (y + 1 < cells.length && cells[x][y + 1].isAlive) {
 			count++;
 		}
-		if (cells[x + 1][y - 1].isAlive) {
+		if (x + 1 < cells.length && y >= 1 && cells[x + 1][y - 1].isAlive) {
 			count++;
 		}
-		if (cells[x - 1][y].isAlive) {
+		if (x + 1 < cells.length && cells[x + 1][y].isAlive) {
 			count++;
 		}
-		if (cells[x - 1][y + 1].isAlive) {
+		if (x + 1 < cells.length && y + 1 < cells.length && cells[x + 1][y + 1].isAlive) {
 			count++;
 		}
 

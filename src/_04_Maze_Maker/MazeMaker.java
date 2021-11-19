@@ -20,8 +20,17 @@ public class MazeMaker {
 		maze = new Maze(rows, cols);
 		
 		//1. select a random cell to start
-		
-		
+		int wall = new Random().nextInt(4);
+		int n = new Random().nextInt(5);
+		if(wall == 0) {
+			
+		} else if (wall == 1) {
+			
+		} else if (wall == 2) {
+			
+		} else {
+			
+		}
 		//2. call selectNextPath method with the randomly selected cell
 		
 		

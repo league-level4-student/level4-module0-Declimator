@@ -71,9 +71,11 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("new");
+		
 		if(e.getSource() == startStopButton) {
 			run = !run;
 			if(run) {
+				System.out.println(run);
 				gamePanel.startAnimation();
 				startStopButton.setText("STOP");
 				int x = 200;
@@ -86,6 +88,7 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 					ex.printStackTrace();
 				}
 				gamePanel.setAnimationDelay(x);
+				
 			}else {
 				gamePanel.stopAnimation();
 				startStopButton.setText("START");
@@ -95,5 +98,6 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 		}else if(e.getSource() == clearButton) {
 			gamePanel.clearCells();
 		}
+		
 	}
 }
