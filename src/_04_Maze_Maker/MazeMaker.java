@@ -21,7 +21,8 @@ public class MazeMaker {
 		
 		//1. select a random cell to start
 		int wall = new Random().nextInt(4);
-		int n = new Random().nextInt(5);
+		int x = new Random().nextInt(5);
+		int y = new Random().nextInt(5);
 		if(wall == 0) {
 			
 		} else if (wall == 1) {
@@ -31,8 +32,9 @@ public class MazeMaker {
 		} else {
 			
 		}
-		//2. call selectNextPath method with the randomly selected cell
 		
+		//2. call selectNextPath method with the randomly selected cell
+		selectNextPath(maze.getCell(x, y));
 		
 		return maze;
 	}
@@ -40,9 +42,9 @@ public class MazeMaker {
 	//3. Complete the selectNextPathMethod
 	private static void selectNextPath(Cell currentCell) {
 		//A. mark cell as visited
-
+		currentCell.setBeenVisited(true);
 		//B. check for unvisited neighbors using the cell
-		
+		getUnvisitedNeighbors(currentCell);
 		//C. if has unvisited neighbors,
 		
 			//C1. select one at random.
