@@ -16,17 +16,15 @@ public class MazeDisplay extends JPanel{
 	private Maze maze;
 	
 	MazeDisplay(){
+		
 		super();
+		maze = MazeMaker.generateMaze(5, 5);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		
 		window = new JFrame();
-		
 		window.add(this);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		window.pack();
-		
-		maze = MazeMaker.generateMaze(5, 5);
 		repaint();
 	}
 	

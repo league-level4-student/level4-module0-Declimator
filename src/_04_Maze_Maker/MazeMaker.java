@@ -19,7 +19,22 @@ public class MazeMaker {
 		rows = r;
 		cols = c;
 		maze = new Maze(rows, cols);
-
+		int wall = new Random().nextInt(4);
+		int z = new Random().nextInt(5);
+		int z2 = new Random().nextInt(5);
+		if(wall == 0) {
+		maze.getCell(z, 0).setWestWall(false);
+		maze.getCell(z2, 4).setEastWall(false);
+		} else if(wall == 1) {
+			maze.getCell(0, z).setNorthWall(false);
+			maze.getCell(4, z2).setSouthWall(false);
+		} else if(wall == 2) {
+			maze.getCell(z, 4).setEastWall(false);
+			maze.getCell(z2, 0).setWestWall(false);
+		}else {
+			maze.getCell(4, z).setSouthWall(false);
+			maze.getCell(0, z2).setNorthWall(false);
+		}
 		// 1. select a random cell to start
 		int x = new Random().nextInt(r);
 		int y = new Random().nextInt(c);
