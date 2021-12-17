@@ -46,9 +46,44 @@ public class TheWrongWayCow {
     public static int[] findWrongWayCow(final char[][] field) {
         // Fill in the code to return the x,y coordinate position of the
         // head (letter 'c') of the wrong way cow!
+    	int prevdirection = 4;
+    	int direction = 4;
+    	int[][] cdirection = new int[4][3];
         for(int i = 0; i < field.length; i++) {
         	for(int j = 0; j < field[i].length; j++) {
-        		
+        		if(field[i][j] == 'c') {
+        			if(i+1 < field.length && field[i+1][j] == 'o') {
+        				cdirection[1][0]++;
+        				cdirection[1][1] = i;
+        				cdirection[1][2] = j;
+        			} else if(i > 0 && field[i-1][j] == 'o') {
+        				cdirection[3][0]++;
+        				cdirection[3][1] = i;
+        				cdirection[3][2] = j;
+        			} else if(j > 0 && field[i][j-1] == 'o') {
+        				cdirection[0][0]++;
+        				cdirection[0][1] = i;
+        				cdirection[0][2] = j;
+        			} else if(j+1 < field[i].length && field[i][j+1] == 'o') {
+        				cdirection[2][0]++;
+        				cdirection[2][1] = i;
+        				cdirection[2][2] = j;
+        			}
+        			
+        		}
+        	}
+        }
+        for(int i = 0; i < 4; i++) {
+        	for(int j = 0; j < 3; j++) {
+        		System.out.print(cdirection[i][j]);
+        	}
+        	System.out.println("");
+        }
+        for(int i = 0; i < 4; i++) {
+        	if(cdirection[i][0] == 1) {
+        		int[] r = {cdirection[i][2], cdirection[i][1]};
+        		System.out.println(r[0] + " " + r[1]);
+        		return r;
         	}
         }
         return null;
